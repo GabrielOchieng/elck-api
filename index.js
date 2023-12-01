@@ -38,7 +38,6 @@ app.use(compression());
 // });
 
 app.use(cors());
-app.options("https://elck-cdc.onrender.com", cors());
 
 // app.use(
 // 	cors({
