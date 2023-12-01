@@ -25,16 +25,26 @@ app.use(compression());
 
 // app.use(cors());
 
-app.use(
-	cors({
-		origin: [
-			// "http://localhost:3000",
-			"https://elck-cdc.onrender.com/",
-		],
-		methods: ["GET", "POST", "PUT", "DELETE"],
-		credentials: true,
-	})
-);
+// app.use(
+// 	cors({
+// 		origin: [
+// 			// "http://localhost:3000",
+// 			"https://elck-cdc.onrender.com/",
+// 		],
+// 		methods: ["GET", "POST", "PUT", "DELETE"],
+// 		credentials: true,
+// 	})
+// );
+
+// using proxy to overcome cors issues
+const apiProxy = createProxyMiddleware("/api", {
+	target: "https://elck-cdc.onrender.com/",
+	changeOrigin: true,
+});
+
+// Telling the app to use the proxy
+// middleware for the path /api
+app.use("/api", apiProxy);
 
 app.use(cookieParser());
 
