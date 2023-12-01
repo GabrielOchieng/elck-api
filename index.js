@@ -29,7 +29,7 @@ app.use(
 	cors({
 		origin: [
 			// "http://localhost:3000",
-			"https://elck-cdc.onrender.com",
+			"https://elck-cdc.onrender.com/",
 		],
 		methods: ["GET", "POST", "PUT", "DELETE"],
 		credentials: true,
