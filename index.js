@@ -23,27 +23,28 @@ app.listen(PORT, () => {
 
 app.use(compression());
 
-app.use(function (req, res, next) {
-	res.setHeader("Access-Control-Allow-Origin", "https://elck-cdc.onrender.com");
-	res.setHeader(
-		"Access-Control-Allow-Methods",
-		"GET, POST, OPTIONS, PUT, PATCH, DELETE"
-	);
-	res.setHeader(
-		"Access-Control-Allow-Headers",
-		"X-Requested-With,content-type"
-	);
-	res.setHeader("Access-Control-Allow-Credentials", true);
-	next();
-});
+// app.use(function (req, res, next) {
+// 	res.setHeader("Access-Control-Allow-Origin", "https://elck-cdc.onrender.com");
+// 	res.setHeader(
+// 		"Access-Control-Allow-Methods",
+// 		"GET, POST, OPTIONS, PUT, PATCH, DELETE"
+// 	);
+// 	res.setHeader(
+// 		"Access-Control-Allow-Headers",
+// 		"X-Requested-With,content-type"
+// 	);
+// 	res.setHeader("Access-Control-Allow-Credentials", true);
+// 	next();
+// });
 
-// app.use(cors());
-// app.options("https://elck-cdc-website-front.vercel.app", cors());
+app.use(cors());
+app.options("https://elck-cdc.onrender.com", cors());
+
 // app.use(
 // 	cors({
 // 		origin: [
 // 			// "http://localhost:3000",
-// "https://elck-cdc-website-front.vercel.app",
+// 			"https://elck-cdc-website-front.vercel.app",
 // 		],
 // 		methods: ["GET", "POST", "PUT", "DELETE"],
 // 		credentials: true,
