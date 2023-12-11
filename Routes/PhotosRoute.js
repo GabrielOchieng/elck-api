@@ -38,7 +38,7 @@ const resizeUserPhoto = (req, res, next) => {
 		.resize(500, 500)
 		.toFormat("jpeg")
 		.jpeg({ quality: 90 })
-		.toFile(`public/uploads/photos/${req.file.filename}`);
+		.toFile(`../frontend/public/uploads/photos/${req.file.filename}`);
 
 	next();
 };
