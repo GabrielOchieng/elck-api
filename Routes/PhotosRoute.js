@@ -2,57 +2,29 @@ const express = require("express");
 const Photo = require("../Models/PhotoModel.js");
 const multer = require("multer");
 const router = express.Router();
-const sharp = require("sharp");
 
-// const multerStorage = multer.diskStorage({
-// 	destination: (req, file, cb) => {
-// 		cb(null, "public/uploads/photos");
-// 	},
-// 	filename: (req, file, cb) => {
-// 		const ext = file.mimetype.split("/")[1];
-// 		cb(null, `photo-${req.photo.id}-${Date.now()}.${ext}`);
-// 	},
-// });
-
-const multerStorage = multer.memoryStorage();
-
-const multerFilter = (req, file, cb) => {
-	if (file.mimetype.startsWith("image")) {
-		cb(null, true);
-	} else {
-		cb("Not an image, please only upload images", false);
-	}
-};
-
-const upload = multer({
-	storage: multerStorage,
-	fileFilter: multerFilter,
+// MULTER IMAGE UPLOAD
+const storage = multer.diskStorage({
+	destination: (req, file, callback) => {
+		callback(null, "../frontend/public/photos/");
+	},
+	filename: (req, file, callback) => {
+		callback(null, file.originalname);
+	},
 });
 
-const resizeUserPhoto = (req, res, next) => {
-	if (!req.file) return next();
-
-	req.file.filename = `photo-${req.photo.id}-${Date.now()}.jpeg`;
-
-	sharp(req.file.buffer)
-		.resize(500, 500)
-		.toFormat("jpeg")
-		.jpeg({ quality: 90 })
-		.toFile(`../frontend/public/uploads/photos/${req.file.filename}`);
-
-	next();
-};
+const upload = multer({ storage: storage });
 
 // Route for Save a new Photo
-router.post("/", upload.single("photo"), async (request, response) => {
+router.post("/", upload.single("image"), async (request, response) => {
 	try {
-		if (!request.body.photo || !request.body.description) {
+		if (!request.body.image || !request.body.description) {
 			return response.status(400).send({
-				message: "Send all required fields: photo, description",
+				message: "Send all required fields: image, description",
 			});
 		}
 		const newPhoto = {
-			photo: request.file.originalname,
+			image: request.file.originalname,
 			description: request.body.description,
 		};
 
@@ -95,11 +67,11 @@ router.get("/:id", async (request, response) => {
 });
 
 // Route for Update a Photo
-router.put("/:id", upload.single("photo"), async (request, response) => {
+router.put("/:id", upload.single("image"), async (request, response) => {
 	try {
-		if (!request.body.photo || !request.body.description) {
+		if (!request.body.image || !request.body.description) {
 			return response.status(400).send({
-				message: "Send all required fields: photo, description",
+				message: "Send all required fields: image, description",
 			});
 		}
 
@@ -137,3 +109,4 @@ router.delete("/:id", async (request, response) => {
 });
 
 module.exports = router;
+// export default router;
