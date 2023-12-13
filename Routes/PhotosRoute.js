@@ -27,7 +27,7 @@ router.post("/", upload.single("image"), async (request, response) => {
 			});
 		}
 		const newPhoto = {
-			// image: request.file.originalname,
+			image: request.file.originalname,
 			description: request.body.description,
 		};
 
