@@ -18,10 +18,7 @@ const upload = multer({ storage: storage });
 // Route for Save a new Photo
 router.post("/", upload.single("image"), async (request, response) => {
 	try {
-		if (
-			// !request.body.image ||
-			!request.body.description
-		) {
+		if (!request.body.image || !request.body.description) {
 			return response.status(400).send({
 				message: "Send all required fields: image, description",
 			});
