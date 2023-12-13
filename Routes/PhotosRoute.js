@@ -6,7 +6,7 @@ const router = express.Router();
 // MULTER IMAGE UPLOAD
 const storage = multer.diskStorage({
 	destination: (req, file, callback) => {
-		callback(null, "../frontend/public/photos/");
+		callback(null, "../frontend/public/photosdes/");
 	},
 	filename: (req, file, callback) => {
 		callback(null, file.originalname);
