@@ -21,7 +21,11 @@ router
 		ParticipantController.restrictTo("admin"),
 		ParticipantController.createNewParticipant
 	)
-	.put(ParticipantController.updateParticipant)
+	.put(
+		upload.single("profilepic"),
+		ParticipantController.restrictTo("admin"),
+		ParticipantController.updateParticipant
+	)
 	.delete(
 		ParticipantController.restrictTo("admin"),
 		ParticipantController.deleteParticipant
