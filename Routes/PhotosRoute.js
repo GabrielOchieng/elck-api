@@ -14,19 +14,22 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage });
+router.route("/").get(PhotoController.getAllPhotos).post(
+	upload.single("image"),
+	// PhotoController.restrictTo("admin"),
+	PhotoController.updatePhoto
+);
+
 router
-	.route("/")
-	.get(PhotoController.getAllPhotos)
-	.post(
-		upload.single("image"),
-		PhotoController.restrictTo("admin"),
-		PhotoController.updatePhoto
-	)
+	.route("/:id")
 	.put(
 		upload.single("image"),
-		PhotoController.restrictTo("admin"),
+		// PhotoController.restrictTo("admin"),
 		PhotoController.updatePhoto
 	)
-	.delete(PhotoController.restrictTo("admin"), PhotoController.deletePhoto);
+	.delete(
+		// PhotoController.restrictTo("admin"),
+		PhotoController.deletePhoto
+	);
 
 module.exports = router;

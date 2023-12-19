@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const multer = require("multer");
 const ParticipantController = require("../Controllers/ParticipantsController.js");
+const AuthController = require("../Controllers/AuthController.js");
 
 // MULTER IMAGE UPLOAD
 const storage = multer.diskStorage({
@@ -13,21 +14,21 @@ const storage = multer.diskStorage({
 	},
 });
 const upload = multer({ storage: storage });
+router.route("/").get(ParticipantController.getAllParticipants).post(
+	upload.single("profilepic"),
+	// AuthController.restrictTo("admin", "director"),
+	ParticipantController.createNewParticipant
+);
+
 router
-	.route("/")
-	.get(ParticipantController.getAllParticipants)
-	.post(
-		upload.single("profilepic"),
-		ParticipantController.restrictTo("admin"),
-		ParticipantController.createNewParticipant
-	)
+	.route("/:id")
 	.put(
 		upload.single("profilepic"),
-		ParticipantController.restrictTo("admin"),
+		// AuthController.restrictTo("admin", "director"),
 		ParticipantController.updateParticipant
 	)
 	.delete(
-		ParticipantController.restrictTo("admin"),
+		// AuthController.restrictTo("admin", "director"),
 		ParticipantController.deleteParticipant
 	);
 

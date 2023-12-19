@@ -133,16 +133,6 @@ const deleteParticipant = async (request, response) => {
 		response.status(500).send({ message: error.message });
 	}
 };
-const restrictTo = (...roles) => {
-	return (req, res, next) => {
-		if (!roles.includes(req.user.role)) {
-			return next(
-				new Error("You do not have permission to perform this action", 403)
-			);
-		}
-		next();
-	};
-};
 
 module.exports = {
 	getAllParticipants,
@@ -150,5 +140,4 @@ module.exports = {
 	createNewParticipant,
 	updateParticipant,
 	deleteParticipant,
-	restrictTo,
 };

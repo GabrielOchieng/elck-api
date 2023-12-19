@@ -51,3 +51,15 @@ module.exports.Login = async (req, res, next) => {
 		console.error(error);
 	}
 };
+
+// module.exports.restrictTo = (...roles) => {
+// 	console.log(User);
+// 	return (req, res, next) => {
+// 		if (!roles.includes(req.User.role)) {
+// 			return next(
+// 				new Error("You do not have permission to perform this action", 403)
+// 			);
+// 		}
+// 		next();
+// 	};
+// };
